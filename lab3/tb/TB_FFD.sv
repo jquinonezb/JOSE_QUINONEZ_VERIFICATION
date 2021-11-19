@@ -2,11 +2,11 @@
 module TB_FFD(); 
 logic  D;
 bit clk, reset;
-logic  q;
+logic  q, q1;
 logic  gold;
 //logic [WIDTH-1:0] error;
 
-FF_D  Test (.d(D), .clk(clk), .q(q), .reset(reset));
+FF_D  Test (.d(D), .clk(clk), .q(q), .reset(reset), .q1(q1));
 
 always
 begin 
