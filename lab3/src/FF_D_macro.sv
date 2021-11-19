@@ -1,30 +1,20 @@
-module FF_D
-#(
-	parameter WIDTH = 4
-)
+module FF_D 
 (
-	input logic [WIDTH-1:0] Data_Input,
-	input logic clk, reset,
-	output logic [WIDTH-1:0] Data_Output
+// clock
+input bit      clk,
+// reset
+input bit      reset, 
+// Data to store
+input logic    d, 
+// Stored data
+output logic   q, q1
 );
 
-`ifdef pos_reset	
-	always @(posedge clk or posedge reset)   
-	begin
-	if(reset)
-	Data_Output = 0;
-	else
-	Data_Output <= Data_Input;
-	end
+`include "macro_FFD.def"
+`include "macro_ST.def"
 
-`else
-	always @(posedge clk or negedge reset)	   
-	begin
-	if(!reset)
-	Data_Output = 0;
-	else
-	Data_Output  <= Data_Input;
-	end
-	
-`endif
-endmodule 
+`Macro_FFD(clk, "negedge", reset, d, q);
+`Macro_ST("info");
+`Macro_FFD(clk, "posedge", reset, d, q1);
+`Macro_ST("fatal", 1);
+endmodule
