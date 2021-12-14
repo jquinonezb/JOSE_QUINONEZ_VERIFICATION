@@ -1,0 +1,17 @@
+`define Macro_FFD(clk, myedge="negedge", reset, d, q)\
+generate case(``myedge)\
+   "posedge": begin\
+      always_ff@(posedge ``clk or posedge ``reset) begin\
+      if (``reset)\
+         ``q<= '0;\
+      else ``q <=``d;\
+      end\
+   end\
+   "negedge": begin\
+      always_ff@(posedge ``clk, negedge ``reset) begin\
+         if (!``reset)\
+            ``q <= '0;\
+         else ``q <= ``d;\
+      end\
+   end\
+endcase endgenerate

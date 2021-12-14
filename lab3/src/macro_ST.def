@@ -1,0 +1,20 @@
+`define Macro_ST(s_task="info", f_n =0)\
+generate case(``s_task)\
+	"fatal": begin\
+	if (``f_n == 0)\
+	$fatal(``f_n, "Esto es un mensaje fatal con finish number 0");\
+	else if (``f_n == 1)\
+	$fatal(``f_n, "Esto es un mensaje fatal con finish number 1");\
+	else if (``f_n == 2)\
+	$fatal(``f_n, "Esto es un mensaje fatal con finish number 2");\
+	end\
+	"error": begin\
+	$error("ERROR: se ha detectado una amenaza");\
+	end\
+	"warning": begin\
+	$warning("WARNING!: se ha detectado una amenaza");\
+	end\
+	"info": begin\
+	$info("Aquí hay información");\
+	end\
+endcase endgenerate
