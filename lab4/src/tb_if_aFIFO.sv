@@ -1,8 +1,8 @@
 interface tb_if_aFIFO(
-    input clock[1:0], 
-    input reset[1:0]
+    input bit clock_r, clock_w,  
+    input bit reset_r, reset_w
     );
-import fifo_pkg::*;
+import tb_fifo_pkg::*;
 
 // Write process
 push_e_t    push;
@@ -15,28 +15,28 @@ data_t      data_out;
 
 modport fifo(
     input   push,
-    output  full,
     input   data_in,
-    input   pop, 
+    input   pop,
+    input   clock_r, //rd_clk
+    input   clock_w, //wrt_clk
+    input   reset_r, //rd_reset
+    input   reset_w, //wrt_reset
+    output  full, 
     output  empty,
-    output  data_out,
-    input   clock[0], //wrt_clk
-    input   clock[1], //rd_clk
-    input   reset[0], //wrt_reset
-    input   reset[1] //rd_reset
+    output  data_out
 );
 
 modport dvr(
-    output   push,
-    input    full,
-    output   data_in,
-    output   pop, 
+    input    full, 
     input    empty,
-    input    data_out,
-    output   clock[0],
-    output   clock[1],
-    output   reset[0],
-    output   reset[1]
+    input    data_out, 
+    output   push,
+    output   data_in,
+    output   pop,
+    input   clock_r, //rd_clk
+    input   clock_w, //wrt_clk
+    output   reset_r, //rd_reset
+    output   reset_w //wrt_reset
 );
 
 endinterface 
