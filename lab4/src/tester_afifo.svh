@@ -116,7 +116,7 @@ task Pop_validation(input int counter);
 	pop = (Random_flag()) ? POP : NO_POP;
 
         ext_one_data(.Pop(pop), .data_out(data_out), .empty(empty));
-        expected_value = Q.pop_front();
+        expected_value = Q.pop_back();
 	Fifos_Comparison(.expected(expected_value), .obtained(data_out));
         OverFlow_NoDataLost(.obtained(data_out));
 endtask
