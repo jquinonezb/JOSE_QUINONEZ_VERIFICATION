@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-include "tester_afifo.svh";
+`include "tester_afifo.svh";
 module tb_afifo();
 
 import fifo_pkg::*;
