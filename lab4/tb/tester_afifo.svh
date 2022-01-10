@@ -62,14 +62,18 @@ endtask
 
 // Extraction of one data at a time
 task automatic ext_one_data(output data_t data_out, output data_t empty);
+	data_t x_out;
 	@(posedge itf.clock_r or negedge itf.reset_r)
 	//if(!itf.reset_r)begin
 	itf.pop = pop_e_t'($random());
+	if (itf.pop)begin
+	data_out = Q_1.pop_front();
 	itf.data_out = data_out;
 		if(Q_1.size == 0)begin
-			empty = 0;
+			empty = 1;
 			itf.empty = empty;
 		end
+	end
 endtask
 
 /*========== Verify results ==========================*/
@@ -108,7 +112,7 @@ task Push_Validation();
         end
 endtask
 
-task Pop_validation(input int counter);
+task Pop_validation();
 	pop_e_t  pop;
 	data_t data_out;
 	logic empty;

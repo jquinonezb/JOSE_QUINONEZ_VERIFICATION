@@ -1,4 +1,4 @@
-`timescale 100ps / 1ps
+`timescale 1ps / 1ps
 `include "tester_afifo.svh";
 module tb_afifo();
 
@@ -8,7 +8,8 @@ bit 	clk_r,
 	clk_w, 
 	rst_w, 
 	rst_r;
-int  reset = 3;
+int  	reset 	= 3,
+	i 	= 0;
 localparam 	times_push 	= 18,
 		times_pop 	= 16,
 		times_rep 	= 5;
@@ -56,17 +57,16 @@ initial begin
 			rst_r = ~rst_r;
 	end
 
-	repeat(times_rep)begin 
-	//Random_flags();
 	
 	//PUSH
-	#2 repeat(times_push)begin
+	for (i=0; i <times_push; i=i+1)begin
 	t.inj_one_data(.full(full));
+	t.Push_Validation();
 	end
-        //POP
-        #2 repeat(times_pop)begin
+        
+	//POP
+        for (i=0; i <times_pop; i=i+1)begin
 	t.ext_one_data(.data_out(data_out), .empty(empty));
-	end 
 	end
-end 
+end
 endmodule
