@@ -4,5 +4,5 @@ vlog -f files.f
 onbreak {resume}
 set NoQuitOnFinish 1
 vsim -voptargs=+acc work.tb_afifo
-do wave.do
+#do wave.do
 run 1300ps
